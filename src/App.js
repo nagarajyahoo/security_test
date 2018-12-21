@@ -1,13 +1,16 @@
 import React, {Component} from 'react';
 import './App.css';
-import Login from './containers/login/Login';
+import {BrowserRouter} from "react-router-dom";
+import Main from "./containers/home/Main";
 
 class App extends Component {
     render() {
         return (
-            <div className="App">
-                <Login />
-            </div>
+            <BrowserRouter>
+                <div className="App">
+                    <Main/>
+                </div>
+            </BrowserRouter>
         );
     }
 }

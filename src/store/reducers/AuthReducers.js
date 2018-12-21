@@ -8,14 +8,19 @@ const initialState = {
 
 const authReducer = (state = initialState, action) => {
     switch (action.type) {
+        case Actions.PROCESSING:
+            return {
+                ...state,
+                error: undefined
+            };
         case Actions.LOGIN_SUCCESSFUL:
             return {
-                ...initialState,
+                ...state,
                 token: action.data.token
             };
         case Actions.LOGIN_FAILURE:
             return {
-                ...initialState,
+                ...state,
                 error: action.data
             };
         default:

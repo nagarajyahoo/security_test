@@ -17,14 +17,14 @@ export const loginFailure = (reason) => {
 };
 
 export const login = (userId, password) => {
-    processing();
-
     const loginRequest = {
-        userId: userId,
+        username: userId,
         password: password
     };
 
     return (dispatch => {
+        dispatch(processing());
+
         axios.post('/login', loginRequest)
             .then(res => {
                 console.log(res);

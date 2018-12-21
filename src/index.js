@@ -6,11 +6,13 @@ import * as serviceWorker from './serviceWorker';
 import {Provider} from 'react-redux';
 import {applyMiddleware, createStore, combineReducers, compose} from 'redux';
 import thunk from 'redux-thunk';
-import authReducer from "./store/reducers/AuthReducers";
+import AuthReducers from "./store/reducers/AuthReducers";
+import StudentReducer from "./store/reducers/StudentReducer";
 
 //create reducers
 const reducers = combineReducers({
-    myauth: authReducer
+    myauth: AuthReducers,
+    students: StudentReducer
 });
 
 //create composers
