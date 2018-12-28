@@ -1,17 +1,20 @@
 import React from 'react';
-import {Row, Col, Jumbotron, Button, Form, FormGroup, FormControl, ControlLabel} from 'react-bootstrap';
+import {Button, Col, ControlLabel, Form, FormControl, FormGroup, Jumbotron, Row} from 'react-bootstrap';
 import './Login.css';
 import {connect} from 'react-redux';
 import * as AuthActions from '../../store/actions/AuthActions';
+import {withRouter} from "react-router";
 
 class Login extends React.Component {
     constructor() {
         super();
-        this.state = {}
+        this.onSubmit = this.onSubmit.bind(this);
     }
 
     onSubmit = () => {
-        this.props.login(this.state.username, this.state.password);
+        this.props.dummyLogin(true);
+        console.log(this.props.history);
+        this.props.history.push('/students')
     };
 
     inputChangeHandler = (event, type) => {
@@ -31,7 +34,7 @@ class Login extends React.Component {
 
                         {this.props.error ? <p className="alert alert-danger">{this.props.error} </p> : null}
 
-                        <Form method={'post'} onSubmit={() => this.onSubmit()}>
+                        <Form method={'post'}>
                             <FormGroup>
                                 <ControlLabel>Login</ControlLabel>
                                 <FormControl type='text'
@@ -44,7 +47,7 @@ class Login extends React.Component {
                                              onChange={(event) => this.inputChangeHandler(event, 'password')}/>
                             </FormGroup>
                             <FormGroup>
-                                <Button bsStyle="success" type="button" onClick={() => this.onSubmit()}>Login</Button>
+                                <Button bsStyle="success" type="button" onClick={this.onSubmit}>Login</Button>
                                 <Button bsStyle="default" type="reset">Reset</Button>
                             </FormGroup>
                         </Form>
@@ -59,14 +62,16 @@ const mapStateToProps = (state) => {
     return {
         token: state.myauth.token,
         userId: state.myauth.userId,
-        error: state.myauth.error
+        error: state.myauth.error,
+        loggedIn: state.myauth.loggedIn
     }
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        login: (userId, password) => dispatch(AuthActions.login(userId, password))
+        login: (userId, password) => dispatch(AuthActions.login(userId, password)),
+        dummyLogin: (isLogin) => dispatch(AuthActions.dummyLogin(isLogin)),
     }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Login));

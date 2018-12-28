@@ -55,7 +55,7 @@ class Students extends React.Component {
                                              name='studentPassword'
                                              placeholder='Student Password'
                                              onChange={(event) => this.inputChangeHandler(event, 'studentPassword')}/>
-                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                             </FormGroup>
                             <FormGroup>
                                 <Button bsStyle="success" type="button" onClick={() => this.addStudent()}>Add
@@ -79,12 +79,14 @@ class Students extends React.Component {
                             <tr>
                                 <td>one</td>
                                 <td>two</td>
-                                <td><Button bsStyle="danger" type="button" onClick={() => this.deleteStudent(1)}>Delete</Button></td>
+                                <td><Button bsStyle="danger" type="button"
+                                            onClick={() => this.deleteStudent(1)}>Delete</Button></td>
                             </tr>
                             <tr>
                                 <td>one</td>
                                 <td>two</td>
-                                <td><Button bsStyle="danger" type="button" onClick={() => this.deleteStudent(2)}>Delete</Button></td>
+                                <td><Button bsStyle="danger" type="button"
+                                            onClick={() => this.deleteStudent(2)}>Delete</Button></td>
                             </tr>
                             </tbody>
                         </Table>

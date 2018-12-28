@@ -3,17 +3,31 @@ import axios from '../../interceptors/Axios';
 export const LOGIN_SUCCESSFUL = 'LOGIN_SUCCESSFUL';
 export const LOGIN_FAILURE = 'LOGIN_FAILURE';
 export const PROCESSING = 'PROCESSING';
+export const DUMMY_LOGIN = 'DUMMY_LOGIN';
 
-export const loginSuccessful = (authData) => {
+const loginSuccessful = (authData) => {
     return {type: LOGIN_SUCCESSFUL, data: authData}
 };
 
-export const processing = () => {
+const processing = () => {
     return {type: PROCESSING}
 };
 
-export const loginFailure = (reason) => {
+const loginFailure = (reason) => {
     return {type: LOGIN_FAILURE, data: reason}
+};
+
+const loginForTesting = (isLogin) => {
+    return {
+        type: DUMMY_LOGIN,
+        data: isLogin
+    }
+};
+
+export const dummyLogin = (isLogin) => {
+  return (dispatch => {
+      dispatch(loginForTesting(isLogin));
+  });
 };
 
 export const login = (userId, password) => {

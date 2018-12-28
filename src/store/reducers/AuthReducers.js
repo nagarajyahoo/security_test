@@ -3,7 +3,8 @@ import * as Actions from '../actions/AuthActions';
 const initialState = {
     token: null,
     userId: null,
-    error: null
+    error: null,
+    loggedIn: false
 };
 
 const authReducer = (state = initialState, action) => {
@@ -22,6 +23,12 @@ const authReducer = (state = initialState, action) => {
             return {
                 ...state,
                 error: action.data
+            };
+        case Actions.DUMMY_LOGIN:
+            return {
+                ...state,
+                error: undefined,
+                loggedIn: action.data
             };
         default:
             return state;

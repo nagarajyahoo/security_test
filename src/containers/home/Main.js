@@ -1,19 +1,20 @@
 import React from 'react';
 import './Main.css';
-import {Navbar, Nav, NavItem} from "react-bootstrap";
-import {Link} from "react-router-dom";
-import {Route, Router, Switch} from "react-router";
+import {Nav, Navbar, NavItem} from "react-bootstrap";
+import {LinkContainer} from 'react-router-bootstrap';
+import {Switch, withRouter, Route} from "react-router";
 import Students from "../students/Students";
-import Login from "../login/Login";
-import PrivateRoute from "../../components/PrivateRoute";
+import * as Actions from '../../store/actions/AuthActions'
+import {connect} from "react-redux";
 
 class Main extends React.Component {
-    isLoggedIn = () => {
-        return localStorage.getItem("token") ? true : false;
+    login = () => {
+        console.log('logging our');
+        this.props.logOut(false);
     };
 
     render() {
-        const authContent = this.isLoggedIn() ? <Link to={'/signout'}>Sign out</Link> : <Link to={'/login'}>Sign in</Link>;
+        const authContent = this.props.isLoggedIn ? 'Sign Out' : 'Sign In';
         return (
             <div>
                 <div>
@@ -24,25 +25,27 @@ class Main extends React.Component {
                             </Navbar.Brand>
                         </Navbar.Header>
                         <Nav>
-                            <NavItem eventKey={1}>
-                                <Link to={'/home'}>Home</Link>
-                            </NavItem>
-                            <NavItem eventKey={2}>
-                                <Link to={'/students'}>Students</Link>
-                            </NavItem>
+                            <LinkContainer to={'/home'}>
+                                <NavItem eventKey={1}>Home</NavItem>
+                            </LinkContainer>
+                        </Nav>
+                        <Nav>
+                            <LinkContainer to={'/students'}>
+                                <NavItem eventKey={2}>students</NavItem>
+                            </LinkContainer>
                         </Nav>
                         <Nav pullRight={true}>
-                            <NavItem>
-                                {authContent}
-                            </NavItem>
+                            <LinkContainer to={'/login'}>
+                                <NavItem eventKey={3}
+                                         onClick={this.login}>{authContent}</NavItem>
+                            </LinkContainer>
                         </Nav>
                     </Navbar>
                 </div>
                 <div>
                     <Switch>
-                        <PrivateRoute path={'/students'} component={Students}/>
-                        <PrivateRoute path={'/home'} component={Students}/>
-                        <Route path={'/login'} component={Login}/>
+                        <Route path={'/students'} component={Students}/>
+                        <Route path={'/home'} component={Students}/>
                     </Switch>
                 </div>
             </div>
@@ -50,4 +53,16 @@ class Main extends React.Component {
     }
 }
 
-export default Main;
+const mapStateToProps = (state) => {
+    return {
+        isLoggedIn: state.myauth.loggedIn
+    }
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        logOut: (isLogin) => dispatch(Actions.dummyLogin(isLogin))
+    }
+};
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Main));
