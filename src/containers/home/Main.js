@@ -6,6 +6,9 @@ import {Switch, withRouter, Route} from "react-router";
 import Students from "../students/Students";
 import * as Actions from '../../store/actions/AuthActions'
 import {connect} from "react-redux";
+import Home from "./Home";
+import PrivateRoute from "../../components/PrivateRoute";
+import {Link} from "react-router-dom";
 
 class Main extends React.Component {
     login = () => {
@@ -21,7 +24,7 @@ class Main extends React.Component {
                     <Navbar inverse>
                         <Navbar.Header>
                             <Navbar.Brand>
-                                <a href="#home">Students Management</a>
+                                <Link to={'/home'}>Students Management</Link>
                             </Navbar.Brand>
                         </Navbar.Header>
                         <Nav>
@@ -44,8 +47,8 @@ class Main extends React.Component {
                 </div>
                 <div>
                     <Switch>
-                        <Route path={'/students'} component={Students}/>
-                        <Route path={'/home'} component={Students}/>
+                        <PrivateRoute path={'/students'} component={Students}/>
+                        <PrivateRoute path={'/home'} component={Home}/>
                     </Switch>
                 </div>
             </div>

@@ -1,13 +1,13 @@
 import React from 'react';
 import {Redirect, Route} from "react-router";
 
-export default ({component, rest}) => {
+export default ({component, props}) => {
     const isLoggedIn = true;
-    return <Route {...rest} render={
-        (props) => {
-            return isLoggedIn ?
-                <component {...props}/> :
-                <Redirect to={'/login'}/>
-        }
-    }/>
+
+    if(isLoggedIn) {
+        return <Route {...props} component={component}/>
+    }
+    else {
+        return <Redirect to={'/login'}/>
+    }
 };
