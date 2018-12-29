@@ -1,13 +1,16 @@
 import React from 'react';
 import {Redirect, Route} from "react-router";
+import {connect} from "react-redux";
 
-export default ({component, props}) => {
-    const isLoggedIn = true;
+const privateRoute = (props) => {
+    const isLoggedIn = props.loggedIn;
 
     if(isLoggedIn) {
-        return <Route {...props} component={component}/>
+        return <Route {...props}/>
     }
     else {
         return <Redirect to={'/login'}/>
     }
 };
+
+export default privateRoute;

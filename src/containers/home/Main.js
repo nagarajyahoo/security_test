@@ -47,8 +47,8 @@ class Main extends React.Component {
                 </div>
                 <div>
                     <Switch>
-                        <PrivateRoute path={'/students'} component={Students}/>
-                        <PrivateRoute path={'/home'} component={Home}/>
+                        <PrivateRoute path={'/students'} loggedIn={this.props.isLoggedIn} component={Students}/>
+                        <PrivateRoute path={'/home'} loggedIn={this.props.isLoggedIn} component={Home}/>
                     </Switch>
                 </div>
             </div>
